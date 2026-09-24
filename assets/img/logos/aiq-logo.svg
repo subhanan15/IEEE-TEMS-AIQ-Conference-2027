@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AIQ 2027 logo (placeholder)">
+  <!-- Placeholder mark: a qubit (Bloch sphere) wrapped by a neural ring. Replace with the official logo. -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#00629B"/>
+      <stop offset="1" stop-color="#002855"/>
+    </linearGradient>
+    <linearGradient id="q" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00B5E2"/>
+      <stop offset="1" stop-color="#6D4BD8"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#g)"/>
+  <circle cx="32" cy="32" r="17" fill="none" stroke="#fff" stroke-opacity=".9" stroke-width="2"/>
+  <ellipse cx="32" cy="32" rx="17" ry="6.5" fill="none" stroke="url(#q)" stroke-width="2.2"/>
+  <ellipse cx="32" cy="32" rx="6.5" ry="17" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.4"/>
+  <line x1="32" y1="32" x2="42" y2="20" stroke="#00B5E2" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="42" cy="20" r="3.4" fill="#00B5E2"/>
+  <circle cx="32" cy="32" r="2.6" fill="#fff"/>
+  <circle cx="15" cy="32" r="2.2" fill="#fff"/>
+  <circle cx="49" cy="32" r="2.2" fill="#fff"/>
+  <circle cx="32" cy="15" r="2.2" fill="#fff"/>
+  <circle cx="32" cy="49" r="2.2" fill="#fff"/>
+</svg>

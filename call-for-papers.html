@@ -1,793 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> - 1st International Conference on Artificial Intelligence and Quantum Computing (AIQ)</title>
-    <link rel="icon" type="image/x-icon" href="assets/tems-logo.png">
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        // Custom Tailwind Configuration for the conference theme
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        // The strong primary blue matching the conference header
-                        'ieee-primary': '#0073B7', 
-                        'ieee-hover-blue': '#1E3A8A', // Darker shade for hover effect (Tailwind blue-900)
-                        
-                        // Colors referenced in your original code
-                        'ieee-red': '#DC2626',
-                        'ieee-blue-dark': '#005A9C', 
-                        'ieee-blue-medium': '#3B82F6', 
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Load Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Custom styles to mimic the dark blue and light blue IEEE branding */
-        :root {
-            --ieee-blue-dark: #005A9C;
-            --ieee-blue-medium: #0073B7;
-            --ieee-blue-light: #0099D8;
-            --ieee-red: #CC0000;
-            --ieee-bg: #F8F8F8;
-            --ieee-grey-text: #333333;
-        }
-
-        /* Set the primary font to Inter for a modern look */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--ieee-bg);
-        }
-
-        /* Top meta bar style */
-        .meta-nav {
-            background-color: var(--ieee-blue-dark);
-            height: 30px;
-            background-color: rgba(0, 102, 153, .1);
-            box-shadow: inset 0 -1px 0 0 #069;
-        }
-
-        .meta-nav a {
-            color: var(--ieee-blue-dark);;
-            font-size: 0.75rem;
-            opacity: 0.9;
-            transition: opacity 0.2s;
-            text-decoration: none;
-        }
-
-        .meta-nav a:hover {
-            opacity: 1;
-        }
-
-        /* Main Header Background (mimicking the tiled pattern) */
-        #main-header {
-            background-color: var(--ieee-blue-medium);
-            background-image: url('https://placehold.co/100x100/0073B7/0073B7?text='); /* Placeholder for the blue pattern */
-            background-repeat: repeat-x;
-            background: linear-gradient(360deg, rgba(219, 240, 252, 1) 35%, rgba(247, 250, 254, 1) 100%);
-            color: #337ab7;
-        }
-
-        /* Main Navigation Bar */
-        #main-nav-bar {
-            background-color: var(--ieee-blue-light);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        #main-nav-bar a.active-nav {
-        color: white; 
-        border-bottom: 4px solid var(--ieee-blue-dark);
-        padding-bottom: 0.75rem;
-        margin-bottom: -4px; 
-        }
-
-        /* Active Navigation Dropdown Style */
-        .active-dropdown-link {
-            color: var(--ieee-red) !important;
-            background-color: var(--ieee-bg);
-            border-radius: 0.25rem;
-        }
-
-        /* Button styling to match the visual reference (Yellow/Red tone) */
-        .yellow-btn {
-            background-color: #FFC000; /* Yellow */
-            color: var(--ieee-blue-dark);
-            font-weight: 700;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .yellow-btn:hover {
-            background-color: #FFD700; /* Darker Yellow */
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* Tab Styles */
-        .tab-button.active {
-            background-color: white;
-            color: var(--ieee-blue-dark);
-            border-bottom: 3px solid var(--ieee-red);
-            font-weight: 600;
-        }
-
-        /* Mobile Menu Transitions */
-        #mobile-menu-drawer {
-            transition: transform 0.3s ease-in-out;
-            transform: translateX(-100%);
-            z-index: 50;
-        }
-
-        #mobile-menu-drawer.open {
-            transform: translateX(0);
-        }
-        
-        /* Footer Styles */
-        #site-footer {
-            background-color: var(--ieee-blue-dark);
-            position: relative;
-            overflow: hidden; 
-        }
-
-        #site-footer::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://placehold.co/800x400/0073B7/005A9C?text=Technical+Circuit+Pattern');
-            background-size: cover;
-            background-position: right center;
-            opacity: 0.2;
-            z-index: 0;
-        }
-        .accordion-header {
-            cursor: pointer;
-            /* Added transition for smoother background change on hover/active */
-            transition: background-color 0.3s ease, color 0.3s ease;
-            /* Ensure the text is visible and prominent against the dark blue */
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Styling for the content panel transition */
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            /* Fine-tuned transition for max-height and padding */
-            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-        }
-        
-        /* The class applied when the content is visible */
-        .accordion-content.open {
-            max-height: 1000px; /* Large value for smooth expansion */
-            padding-top: 1.5rem; /* Equivalent to p-6 (24px) */
-            padding-bottom: 1.5rem; /* Equivalent to p-6 (24px) */
-        }
-
-        /* Icon styling */
-        .plus-icon {
-            transition: transform 0.3s ease;
-            font-weight: 300; /* Use a lighter font weight for the plus/minus icon */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Call for Papers | IEEE AIQ 2027</title>
+  <meta name="description" content="Call for Papers — IEEE AIQ 2027, 1st International Conference on Artificial Intelligence and Quantum Computing, 24–25 September 2027, SIT Hyderabad.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
 </head>
-<body class="bg-ieee-bg text-ieee-grey-text">
+<body data-page="call-for-papers">
+<div id="site-header"></div>
 
-    <!-- 1. Top Meta Navigation Bar (Dark Blue) -->
-    <nav class="meta-nav hidden md:block">
-        <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
-            <ul class="flex justify-end space-x-4 py-1">
-                <li><a href="https://www.ieee.org/" target="_blank"><strong>IEEE.org</strong></a></li>
-                <li><a href="https://ieeexplore.ieee.org/Xplore/home.jsp" target="_blank"><strong>IEEE Xplore</strong></a></li>
-                <li><a href="https://standards.ieee.org/?_gl=1*11sucg7*_gcl_au*NDM5MDk1NjMxLjE3NjQ1ODc5OTk." target="_blank"><strong>IEEE Standards</strong></a></li>
-                <li class="hidden lg:block"><a href="http://spectrum.ieee.org/" target="_blank"><strong>IEEE Spectrum</strong></a></li>
-                <li><a href="https://www.ieee.org/sitemap.html" target="_blank"><strong>More Sites</strong></a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- 2. Main Header (Medium Blue with Logo/Title/Search) -->
-    <header id="main-header" class="shadow-lg">
-        <div class="w-full px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <!-- Logo/Title Block -->
-            <div class="flex-grow md:flex-grow-0">
-                <a href="./" class="flex flex-col items-start text-ieee-blue-dark leading-none">
-                    <h1 class="text-xl md:text-2xl font-bold uppercase tracking-tight">IEEE AIQ 2027 </h1>
-                    <span class="text-xs md:text-sm font-light">24th-25th September 2027 &nbsp;|&nbsp; <span class="font-bold text-ieee-blue-dark">A Hybrid Conference</span> </span>
-                    <span class="text-xs md:text-sm font-light">Symbiosis Institute of Technology (SIT), Hyderabad</span>
-                    <span class="text-xs md:text-sm font-light">1st International Conference on Artificial Intelligence and Quantum Computing</span>
-                </a>
-            </div>
-
-            <!-- Search and IEEE Logo (Right Side - Desktop) -->
-            <div class="hidden md:flex items-center space-x-4">
-                <form id="desktop-search-form" class="flex items-center">
-        <input 
-            type="search" 
-            id="desktop-search-input" 
-            placeholder="Search Conference..." 
-            class="p-2 text-sm text-ieee-grey-text rounded-l-lg focus:ring-2 focus:ring-ieee-blue-light border border-gray-300 outline-none w-64 transition-all"
-        >
-        <button type="submit" class="bg-white p-2 text-ieee-blue-dark rounded-r-lg border border-gray-300 border-l-0 hover:bg-gray-50 transition-colors">
-            <i class="fa fa-search"></i>
-        </button>
-    </form>
-                <a href="https://www.ieee.org/" target="_blank" class="w-20">
-                    <img src="assets/ieee-logo-Photoroom.png" alt="Symbiosis Logo" class="w-full h-auto object-contain">
-                </a>
-                <a href="https://www.ieee.org/" target="_blank" class="w-20">
-                    <img src="assets/image-1.png" alt="Symbiosis Logo" class="w-full h-auto object-contain">
-                </a>
-                <a href="https://www.ieee.org/" target="_blank" class="w-20">
-                    <img src="assets/footerimg.png" alt="Symbiosis Logo" class="w-full h-auto object-contain">
-                </a>
-                <a href="https://www.ieee.org/" target="_blank" class="w-20">
-                    <img src="assets/ieee_hyd.png" alt="Tems Logo" class="w-full h-auto object-contain">
-                </a>
-
-                <a href="https://www.ieee.org/" target="_blank" class="w-20">
-                    <img src="assets/tems-logo.png" alt="Tems Logo" class="w-full h-auto object-contain">
-                </a>
-            </div>
-            <button id="menu-toggle" class="md:hidden text-ieee-blue text-xl p-2 rounded-lg hover:bg-ieee-blue-dark transition duration-150">
-                <i class="fas fa-bars"></i>
-                <span class="ml-2 text-sm font-semibold">MENU</span>
-            </button>     
-        </div>
-    </header>
-
-    <!-- 3. Main Navigation Bar (Light Blue) -->
-    <nav id="main-nav-bar" class="hidden md:block">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Adjusted spacing and font size to fit all items on one line -->
-            <ul class="flex justify-between md:justify-center items-center space-x-1 lg:space-x-2 text-xs lg:text-sm font-bold whitespace-nowrap">
-                <li><a href="./" class="block py-3 px-2 text-white hover:text-gray-200 transition duration-150 ">HOME</a></li>
-                <li><a href="committee.html" class="block py-3 px-2 text-white hover:text-gray-200 transition duration-150">COMMITTEE</a></li>
-                <li class="group relative">
-                    <a href="#" class="block py-3 px-2 text-white hover:text-gray-200 transition duration-150 flex items-center">AUTHORS <i class="fas fa-caret-down text-xs ml-1"></i></a>
-                    <ul class="absolute hidden group-hover:block bg-white shadow-xl rounded-b-lg min-w-[220px] z-20 text-left">
-                        <li><a href="instructions-for-authors.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Instructions for Authors</a></li>
-                        <li><a href="instructions-of-review-manuscripts.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Review Manuscripts</a></li>
-                        <li><a href="instructions-for-camera-ready-papers.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Camera Ready</a></li>
-                        
-                        <li><a href="https://forms.gle/jwiGBM88yowPtFwr7" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Call for reviews</a></li>
-                    </ul>
-                </li>
-                <li><a href="call-for-papers.html" class="block py-3 px-2 text-white hover:text-gray-200 transition duration-150 active-nav">CALL FOR PAPERS</a></li>
-                <li><a href="important-dates.html" class="block py-3 px-2 text-white hover:text-gray-200 transition duration-150">IMPORTANT DATES</a></li>
-                <li class="group relative">
-                    <a href="#" class="block py-3 px-2 text-white hover:text-gray-200 transition duration-150 flex items-center">PROGRAMS<i class="fas fa-caret-down text-xs ml-1"></i></a>
-                    <ul class="absolute hidden group-hover:block bg-white shadow-xl rounded-b-lg min-w-[220px] z-20 text-left">
-                        <li><a href="keynotes.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Keynotes</a></li> 
-<li><a href="speakers.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">speakers</a></li> 
-<li><a href="comming_soon.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Workshops</a></li>
-<li><a href="comming_soon.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Tutorials</a></li>
-<li><a href="comming_soon.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Industry Forum</a></li>
-<li><a href="comming_soon.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Mentoring Program</a></li>
-<li><a href="comming_soon.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Pre-University STEM Education</a></li>
-<li><a href="comming_soon.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Startup Pitch Competition</a></li>
-<li><a href="comming_soon.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Student Program</a></li>
-<li><a href="comming_soon.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Special Program</a></li>
-<li><a href="comming_soon.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Technical Sessions</a></li>
-<li><a href="comming_soon.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">YP Programs</a></li>
-<li><a href="comming_soon.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">Women in Engineering Program</a></li>
-                        
-                    </ul>
-                </li>
-                 <li><a href="registration.html" class="block py-3 px-2 text-white hover:text-gray-200 transition duration-150">REGISTRATION</a></li>
-                 <li class="group relative">
-                    <a href="#" class="block py-3 px-2 text-white hover:text-gray-200 transition duration-150 flex items-center">HOTEL & TRAVEL<i class="fas fa-caret-down text-xs ml-1"></i></a>
-                    <ul class="absolute hidden group-hover:block bg-white shadow-xl rounded-b-lg min-w-[220px] z-20 text-left">
-                        <li><a href="visa.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">visa</a></li>
-                        <li><a href="visa-request.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">visa letter request</a></li>
-                        <li><a href="hotels.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">hotel information</a></li>
-                        <li><a href="places.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">local attractions</a></li>
-                        <li><a href="venu-information.html" class="block px-4 py-2 text-ieee-grey-text hover:bg-gray-100 font-normal">venu information</a></li>
-                    </ul>
-                </li>
-                
-                <li><a href="sponsorship.html" class="block py-3 px-2 text-white hover:text-gray-200 transition duration-150">SPONSORSHIPS</a></li>
-                <li><a href="contact-us.html" class="block py-3 px-2 text-white hover:text-gray-200 transition duration-150">CONTACT US</a></li>
-                <li><a href="https://cmt3.research.microsoft.com/TEMSMET2026" class="block py-3 px-2 text-white hover:text-gray-200 transition duration-150">SUBMIT PAPER</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu Drawer -->
-    <div id="mobile-menu-drawer" class="fixed top-0 left-0 h-full w-64 bg-ieee-blue-dark text-white shadow-xl p-4 md:hidden">
-        <div class="flex justify-between items-center border-b border-white/20 pb-4 mb-4">
-            <span class="text-lg font-bold">MENU</span>
-            <button id="close-menu" class="text-2xl hover:text-ieee-blue-light"><i class="fas fa-times"></i></button>
-        </div>
-        <ul class="space-y-2">
-            <li><a href="./" class="block py-2 px-3 rounded hover:bg-ieee-blue-medium">HOME</a></li>
-            <li><a href="committee.html" class="block py-2 px-3 rounded hover:bg-ieee-blue-medium">COMMITTEE</a></li>
-            <!-- Dropdown placeholder for Authors -->
-            <li class="relative">
-                <button id="mobile-author-toggle" class="flex justify-between items-center w-full py-2 px-3 rounded hover:bg-ieee-blue-medium text-left">
-                    FOR AUTHORS <i class="fas fa-caret-down text-xs ml-2"></i>
-                </button>
-                <ul id="mobile-author-menu" class="ml-4 mt-1 space-y-1 bg-ieee-blue-medium rounded-lg">
-                    
-                    <li><a href="call-for-papers.html" class="block py-1 px-3 rounded hover:bg-ieee-blue-light text-sm active-dropdown-link"></a></li>
-                    <li><a href="important-dates.html" class="block py-1 px-3 rounded hover:bg-ieee-blue-light text-sm ">Important Dates</a></li>
-                    <li><a href="instructions-for-authors.html" class="block py-1 px-3 rounded hover:bg-ieee-blue-light text-sm">Instructions for Authors</a></li>
-                    <li><a href="instructions-of-review-manuscripts.html" class="block py-1 px-3 rounded hover:bg-ieee-blue-light text-sm ">Review Manuscripts</a></li>
-                    <li><a href="instructions-for-camera-ready-papers.html" class="block py-1 px-3 rounded hover:bg-ieee-blue-light text-sm ">Camera Ready</a></li>
-                </ul>
-            </li>
-            <li><a href="registration.html" class="block py-2 px-3 rounded hover:bg-ieee-blue-medium">REGISTRATION</a></li>
-            <li class="relative">
-                <button id="mobile-author-toggle" class="flex justify-between items-center w-full py-2 px-3 rounded hover:bg-ieee-blue-medium text-left">
-                    HOTEL & TRAVEL <i class="fas fa-caret-down text-xs ml-2"></i>
-                </button>
-                <ul id="mobile-author-menu" class="ml-4 mt-1 space-y-1 bg-ieee-blue-medium rounded-lg">
-                    
-                    <li><a href="visa.html" class="block py-1 px-3 rounded hover:bg-ieee-blue-light text-sm ">visa</a></li>
-                    <li><a href="visa-request.html" class="block py-1 px-3 rounded hover:bg-ieee-blue-light text-sm ">visa letter request</a></li>
-                    <li><a href="hotels.html" class="block py-1 px-3 rounded hover:bg-ieee-blue-light text-sm">hotel information</a></li>
-                    <li><a href="places.html" class="block py-1 px-3 rounded hover:bg-ieee-blue-light text-sm ">local attractions</a></li>
-                    <li><a href="venu-information.html" class="block py-1 px-3 rounded hover:bg-ieee-blue-light text-sm">venu information</a></li>
-                </ul>
-            
-            <li><a href="sponsorship.html" class="block py-2 px-3 rounded hover:bg-ieee-blue-medium">SPONSORSHIPS</a></li>
-            <li><a href="contact-us.html" class="block py-2 px-3 rounded hover:bg-ieee-blue-medium">CONTACT US</a></li>
-             
-        </ul>
-        <!-- Mobile Social Links -->
-        <div class="mt-8 pt-4 border-t border-white/20">
-            <div class="flex justify-around text-xl">
-                <a href="#" target="_blank" class="hover:text-ieee-blue-light"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank" class="hover:text-ieee-blue-light"><i class="fab fa-twitter"></i></a>
-                <a href="#" target="_blank" class="hover:text-ieee-blue-light"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" target="_blank" class="hover:text-ieee-blue-light"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" target="_blank" class="hover:text-ieee-blue-light"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Authors</span>
+      <h1>Call for Papers</h1>
+      <p>Original, unpublished research contributions are invited across eight technical tracks.</p>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / Authors / Call for Papers</nav>
     </div>
-    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/50 hidden z-40 md:hidden"></div>
-
-    <!-- 4. Main Content Area -->
-    <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-
-        <h1 class="text-4xl font-extrabold text-ieee-blue-dark text-center mb-6"> (IEEE AIQ 2027)</h1>
-        
-        <!-- Submission Links Section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-            <a href="https://cmt3.research.microsoft.com/TEMSMET2026" target="_blank" class="yellow-btn block text-center px-8 py-4 rounded-lg text-lg hover:underline transition">
-                <i class="fas fa-upload mr-2"></i> PAPER SUBMISSION LINK 
-            </a>
-            <a href="assets/CALL FOR PAPER.pdf" target="_blank" class="yellow-btn block text-center px-8 py-4 rounded-lg text-lg hover:underline transition">
-                <i class="fas fa-file-pdf mr-2"></i> CALL FOR PAPER BROCHURE
-            </a>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="with-aside">
+      <div>
+        <div class="hero-actions" style="margin-bottom:36px">
+          <a class="btn btn-primary" data-cfg-href="submitUrl" href="#" target="_blank" rel="noopener"><span class="material-icons">upload_file</span>Paper Submission Link</a>
+          <a class="btn btn-outline" data-cfg-href="brochureUrl" href="#"><span class="material-icons">picture_as_pdf</span>Call for Papers Brochure</a>
         </div>
-
-        <!-- Introductory Text -->
-        <section class="bg-white p-6 rounded-lg shadow-lg mb-10">
-            <h2 class="text-2xl font-bold text-ieee-blue-dark mb-4 border-b border-gray-200 pb-2">Conference Scope</h2>
-            <p class="text-base leading-relaxed mb-4">
-                IEEE AIQ 2027 focuses on industrial and upcoming frontier technologies, applications of electronics, controls, communications, instrumentation and computational intelligence. The objectives of the conference are to provide high quality research and professional interactions for the advancement of science, technology, and fellowship. Papers with new research results are encouraged for submission.
-            </p>
-            <p class="text-base leading-relaxed">
-                <!--The conference is technically sponsored by IEEE IES (Industrial Electronics Society) and utilizes the Microsoft CMT service for peer-reviewing.-->
-            </p>
-        </section>
-
-        <!-- Special Issues and Proposals Section -->
-        <section class="bg-white p-6 rounded-lg shadow-lg mb-10">
-            <h2 class="text-2xl font-bold text-ieee-blue-dark mb-4 border-b border-gray-200 pb-2">Special Issues and Proposals</h2>
-            <ul class="list-disc list-inside space-y-3 text-base leading-relaxed text-gray-700">
-                <li>All accepted papers of IEEE AIQ 2027 will be considered for inclusion in special issues of IEEE Transactions on Engineering Management and IEEE Engineering Management Review.</li>
-                <li>Authors of selected papers in IEEE AIQ 2027 will be invited to submit extended versions for potential publication in special issues of IEEE Transactions on Engineering Management and IEEE Engineering Management Review.</li>
-                <li>Special proposals for workshops and invited sessions are also welcome.</li>
-            </ul>
-        </section>
-        
-
-        <!-- Technical Tracks Section (Tabs Interface) -->
-        <section class="mb-12">
-            <h2 class="text-4xl font-extrabold text-ieee-blue text-center mb-10 tracking-tight">Technical Topics </h2>
-
-            <!-- Accordion Container -->
-            <div id="accordion-container" class="space-y-4">
-
-                <!-- Track 1 Item - Enhanced Styling -->
-                <div class="accordion-item rounded-xl shadow-2xl overflow-hidden border border-ieee-primary/20">
-                    <button class="accordion-header active flex justify-between items-center w-full p-5 text-left text-xl font-bold bg-ieee-primary text-white hover:bg-ieee-hover-blue transition duration-300 ease-in-out">
-                        Track 1: Sustainable Power, Energy Systems, Green Technologies & Transport Phenomena  
-                        <span class="plus-icon text-2xl font-light" data-open-icon="&#x2212;" data-closed-icon="&#x2B;">&#x2212;</span>
-                    </button>
-                    <!-- Content div structure refined for padding consistency -->
-                    <div class="accordion-content open bg-white">
-                        <div class="p-0">
-                            <h3 class="text-2xl font-extrabold text-ieee-blue-dark mb-4 border-b pb-2 border-ieee-blue-medium/30 px-6 pt-0">Track 1: Sustainable Power, Energy Systems, Green Technologies & Transport Phenomena</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 px-6 pb-0">
-                                <li>Sustainable Power Generation & Transportation Systems</li>
-                                <li>Renewable and Clean Energy (Solar, Wind, Green Hydrogen, Power-to-X)</li>
-                                <li>Power Electronic Converters, Topologies & Control</li>
-                                <li>Digital Twins for Power Electronic and Energy Systems</li>
-                                <li>Electric & Hybrid Electric Vehicles, Charging Infrastructure</li>
-                                <li>AI and Data Analytics in Power & Energy Engineering</li>
-                                <li>IoT Integration in Smart Energy Systems</li>
-                                <li>Smart Grids, Resilience & Energy Commerce</li>
-                                <li>Cybersecurity for Cyber-Physical Energy Systems</li>
-                                <li>Sustainable Energy Policy, Carbon Neutrality & Global Impact</li>
-                                <li>Computational Fluid Dynamics</li>
-                                <li>Thermal Science</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 2 Item -->
-                <div class="accordion-item rounded-xl shadow-2xl overflow-hidden border border-ieee-primary/20">
-                    <button class="accordion-header flex justify-between items-center w-full p-5 text-left text-xl font-bold bg-ieee-primary text-white hover:bg-ieee-hover-blue transition duration-300 ease-in-out">
-                        Track 2: Artificial Intelligence, Data Science & Cybersecurity Governance
-                        <span class="plus-icon text-2xl font-light" data-open-icon="&#x2212;" data-closed-icon="&#x2B;">&#x2B;</span>
-                    </button>
-                    <div class="accordion-content bg-white">
-                        <div class="p-0">
-                            <h3 class="text-2xl font-extrabold text-ieee-blue-dark mb-4 border-b pb-2 border-ieee-blue-medium/30 px-6 pt-0">Track 2: Artificial Intelligence, Data Science & Cybersecurity Governance</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 px-6 pb-0">
-                                <li>Recurrent Neural Networks (RNN), LSTM & Deep Learning Architectures</li>
-                                <li>Generative AI, Foundation Models & Multimodal Systems</li>
-                                <li>Transformers and Large Language Models (LLMs)</li>
-                                <li>Image/Video Processing, Object Detection & Recognition</li>
-                                <li>AR/VR for Engineering, Education & Human-Centric Solutions</li>
-                                <li>Predictive Analytics & Forecasting in Real-World Scenarios</li>
-                                <li>Big Data Analytics & Applied AI in Healthcare & Finance</li>
-                                <li>AI Ethics, Bias, Transparency, Safety & Responsible AI</li>
-                                <li>Cybersecurity, Data Privacy, Digital Trust & Zero Trust Architecture</li>
-                                <li>AI Laws, Policies & Global Governance Frameworks</li>
-                                <li>Risk Modelling, Threat Detection & Security Challenges in the AI Era</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 3 Item -->
-                <div class="accordion-item rounded-xl shadow-2xl overflow-hidden border border-ieee-primary/20">
-                    <button class="accordion-header flex justify-between items-center w-full p-5 text-left text-xl font-bold bg-ieee-primary text-white hover:bg-ieee-hover-blue transition duration-300 ease-in-out">
-                        Track 3: Smart Systems, Communication Technologies & Intelligent Infrastructure
-                        <span class="plus-icon text-2xl font-light" data-open-icon="&#x2212;" data-closed-icon="&#x2B;">&#x2B;</span>
-                    </button>
-                    <div class="accordion-content bg-white">
-                        <div class="p-0">
-                            <h3 class="text-2xl font-extrabold text-ieee-blue-dark mb-4 border-b pb-2 border-ieee-blue-medium/30 px-6 pt-0">Track 3: Smart Systems, Communication Technologies & Intelligent Infrastructure</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 px-6 pb-0">
-                                <li>IoT, IIoT, Sensor Networks & Edge/Fog Computing</li>
-                                <li>Smart Cities, Smart Homes & Human-Centred Smart Services</li>
-                                <li>Blockchain, Cryptography & Privacy-Preserving Technologies</li>
-                                <li>Wireless Networks, Optical Communications & Sensor Networks</li>
-                                <li>RF, Microwave & mmWave Innovations</li>
-                                <li>Embedded Systems, Real-Time Systems & Cyber-Physical Devices</li>
-                                <li>Software-Defined Networking (SDN) & Network Function Virtualisation (NFV)</li>
-                                <li>High-Performance Computing for Engineering Applications</li>
-                                <li>Evolution to 5G, 6G & Future Connectivity</li>
-                                <li>Resilient Digital Infrastructure for Society</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 4 Item -->
-                <div class="accordion-item rounded-xl shadow-2xl overflow-hidden border border-ieee-primary/20">
-                    <button class="accordion-header flex justify-between items-center w-full p-5 text-left text-xl font-bold bg-ieee-primary text-white hover:bg-ieee-hover-blue transition duration-300 ease-in-out">
-                        Track 4: Engineering, Digital Management & Human-Centred Technology
-                        <span class="plus-icon text-2xl font-light" data-open-icon="&#x2212;" data-closed-icon="&#x2B;">&#x2B;</span>
-                    </button>
-                    <div class="accordion-content bg-white">
-                        <div class="p-0">
-                            <h3 class="text-2xl font-extrabold text-ieee-blue-dark mb-4 border-b pb-2 border-ieee-blue-medium/30 px-6 pt-0">Track 4: Engineering, Digital Management & Human-Centred Technology</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 px-6 pb-0">
-                                <li>Software Engineering & Smart Management Practices</li>
-                                <li>Smart Manufacturing, Automation & Industry 5.0</li>
-                                <li>Predictive Maintenance & AI-Driven Production Systems</li>
-                                <li>Digital Twins for Business, Supply Chain & Operations</li>
-                                <li>Organisational Change & Workforce Transformation in the Digital Era</li>
-                                <li>AI-Enhanced CRM, Service Delivery & Personalisation</li>
-                                <li>CFO Tech: AI-Powered Financial Forecasting & Risk Analytics</li>
-                                <li>AI-Augmented Decision Making & Strategic Management</li>
-                                <li>Digital Currencies, CBDCs & Policy Considerations</li>
-                                <li>Cloud-Based Analytics & Agile Business Platforms</li>
-                                <li>Human-Tech Collaboration in Future Workplaces</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 5 Item -->
-                <div class="accordion-item rounded-xl shadow-2xl overflow-hidden border border-ieee-primary/20">
-                    <button class="accordion-header flex justify-between items-center w-full p-5 text-left text-xl font-bold bg-ieee-primary text-white hover:bg-ieee-hover-blue transition duration-300 ease-in-out">
-                        Track 5: VLSI, Robotics, Embedded Systems & Intelligent Signal Processing
-                        <span class="plus-icon text-2xl font-light" data-open-icon="&#x2212;" data-closed-icon="&#x2B;">&#x2B;</span>
-                    </button>
-                    <div class="accordion-content bg-white">
-                        <div class="p-0">
-                            <h3 class="text-2xl font-extrabold text-ieee-blue-dark mb-4 border-b pb-2 border-ieee-blue-medium/30 px-6 pt-0">Track 5: VLSI, Robotics, Embedded Systems & Intelligent Signal Processing</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 px-6 pb-0">
-                                <li>Audio, Acoustic, Image, Video & Multidimensional Signal Processing</li>
-                                <li>Computer Vision & Intelligent Perception Systems</li>
-                                <li>Mobile Robotics, Outdoor Service Robots & Autonomous Navigation</li>
-                                <li>Aerial Robots: GNC, Autonomy & AI Integration</li>
-                                <li>Human–Machine Interaction & Multirobot Coordination</li>
-                                <li>AI-Assisted VLSI Design, EDA Frameworks & Nanoelectronic Systems</li>
-                                <li>Neuromorphic Computing Trends & Brain-Inspired Systems</li>
-                                <li>Quantum Computing for Engineering & Optimisation</li>
-                                <li>Deep Submicron Design Challenges & Testing Methodologies</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 6 Item -->
-                <div class="accordion-item rounded-xl shadow-2xl overflow-hidden border border-ieee-primary/20">
-                    <button class="accordion-header flex justify-between items-center w-full p-5 text-left text-xl font-bold bg-ieee-primary text-white hover:bg-ieee-hover-blue transition duration-300 ease-in-out">
-                        Track 6: AI-Driven Markets, Consumer Intelligence & Digital Growth                         
-                        <span class="plus-icon text-2xl font-light" data-open-icon="&#x2212;" data-closed-icon="&#x2B;">&#x2B;</span>
-                    </button>
-                    <div class="accordion-content bg-white">
-                        <div class="p-0">
-                            <h3 class="text-2xl font-extrabold text-ieee-blue-dark mb-4 border-b pb-2 border-ieee-blue-medium/30 px-6 pt-0">Track 6: AI-Driven Markets, Consumer Intelligence & Digital Growth                         </h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 px-6 pb-0">
-                                <li>Disruptive Product Innovations & Scalable Ventures</li>
-                                <li>Inclusive and Sustainable Business Models for Social Impact</li>
-                                <li>AI-Powered Sales, Marketing & Consumer Intelligence</li>
-                                <li>Startup Acceleration, Funding Strategies & Market Dynamics</li>
-                                <li>Technology Commercialisation & Innovation Management</li>
-                                <li>Frugal Innovation, Grassroots Innovation & Community Tech</li>
-                                <li>Women in Tech Leadership & Youth Entrepreneurship</li>
-                                <li>Global Collaboration Models under Vasudhaiva Kutumbakam</li>
-                                <li>Digital Finance, FinTech & Inclusive Financial Systems</li>
-                                <li>Smart Operations, Supply Chain Innovation & Digital Transformation</li>
-                                <li>Data-Driven Decision Systems & Business Analytics for Inclusive Growth</li>
-                                <li>Future of Work, Human Capital & Entrepreneurial Ecosystems</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 7 Item -->
-                <div class="accordion-item rounded-xl shadow-2xl overflow-hidden border border-ieee-primary/20">
-                    <button class="accordion-header flex justify-between items-center w-full p-5 text-left text-xl font-bold bg-ieee-primary text-white hover:bg-ieee-hover-blue transition duration-300 ease-in-out">
-                        Track 7: Law, Ethics, Public Policy & Human-Centred Governance
-                        <span class="plus-icon text-2xl font-light" data-open-icon="&#x2212;" data-closed-icon="&#x2B;">&#x2B;</span>
-                    </button>
-                    <div class="accordion-content bg-white">
-                        <div class="p-0">
-                            <h3 class="text-2xl font-extrabold text-ieee-blue-dark mb-4 border-b pb-2 border-ieee-blue-medium/30 px-6 pt-0">Track 7: Law, Ethics, Public Policy & Human-Centred Governance</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 px-6 pb-0">
-                                <li>AI Regulations, Privacy Laws & Global Digital Governance</li>
-                                <li>Legal Challenges around Autonomous Systems & Robotics</li>
-                                <li>Ethical Dilemmas in AI, Data Use & Automation</li>
-                                <li>Policy Frameworks for Sustainable Technology Adoption</li>
-                                <li>Tech Diplomacy, Cross-Border Data Flow & Digital Sovereignty</li>
-                                <li>Environmental Policies & Sustainable Urban Planning</li>
-                                <li>Governance for Smart Cities, Mobility & Green Energy</li>
-                                <li>Human Rights, Digital Inclusion & Equity</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 8 Item -->
-                <div class="accordion-item rounded-xl shadow-2xl overflow-hidden border border-ieee-primary/20">
-                    <button class="accordion-header flex justify-between items-center w-full p-5 text-left text-xl font-bold bg-ieee-primary text-white hover:bg-ieee-hover-blue transition duration-300 ease-in-out">
-                        Track 8: Education, Society & the Future of Human–AI Coexistence
-                        <span class="plus-icon text-2xl font-light" data-open-icon="&#x2212;" data-closed-icon="&#x2B;">&#x2B;</span>
-                    </button>
-                    <div class="accordion-content bg-white">
-                        <div class="p-0">
-                            <h3 class="text-2xl font-extrabold text-ieee-blue-dark mb-4 border-b pb-2 border-ieee-blue-medium/30 px-6 pt-0">Track 8: Education, Society & the Future of Human–AI Coexistence</h3>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4 px-6 pb-0">
-                                <li>AI in Education, Personalised Learning & Smart Classrooms</li>
-                                <li>Future Skills, Workforce Development & Lifelong Learning</li>
-                                <li>Role of Humanities & Social Sciences in the AI Era</li>
-                                <li>Digital Health, Telemedicine & Technological Well-Being</li>
-                                <li>Human–AI Collaboration & Responsible Coexistence</li>
-                                <li>Social Innovation & Community-Oriented Technologies</li>
-                                <li>Technology for Accessibility & Assistive Solutions</li>
-                                <li>Global Citizenship & Vasudhaiva Kutumbakam in Society</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- CMT Acknowledgment -->
-        <div class="text-center text-sm text-gray-500 mt-10 p-4 bg-gray-100 rounded-lg shadow-inner">
-            <p>CMT Acknowledgment: The Microsoft CMT service was used for managing the peer-reviewing process for this conference. This service was provided for free by Microsoft and they bore all expenses, including costs for Azure cloud services as well as for software development and support.</p>
+        <div class="prose-card prose reveal">
+          <h2>Conference Scope</h2>
+          <p>IEEE AIQ 2027 focuses on industrial and upcoming frontier technologies, applications of electronics, controls, communications, instrumentation and computational intelligence. The objectives of the conference are to provide high quality research and professional interactions for the advancement of science, technology, and fellowship. Papers with new research results are encouraged for submission.</p>
+          <h2>Special Issues and Proposals</h2>
+          <p>All accepted papers of IEEE AIQ 2027 will be considered for inclusion in special issues of IEEE Transactions on Engineering Management and IEEE Engineering Management Review.</p>
+          <p>Authors of selected papers in IEEE AIQ 2027 will be invited to submit extended versions for potential publication in special issues of IEEE Transactions on Engineering Management and IEEE Engineering Management Review.</p>
+          <p>Special proposals for workshops and invited sessions are also welcome.</p>
         </div>
-        <div class="text-center text-sm text-gray-500 mt-10 p-4 bg-gray-100 rounded-lg shadow-inner">
-            <img src="assets/CALL FOR PAPER (4)_page-0001.jpg" alt="24days" class="w-90 h-auto mx-auto">
+        <h2 style="color:var(--navy);margin:56px 0 24px">Technical Topics</h2>
+        <div class="accordion">
+        <div class="acc-item open" id="track-1">
+          <button class="acc-head"><span class="num">1</span>Track 1: Sustainable Power, Energy Systems, Green Technologies &amp; Transport Phenomena<span class="material-icons chev">expand_more</span></button>
+          <div class="acc-body"><div><ul><li>Sustainable Power Generation &amp; Transportation Systems</li><li>Renewable and Clean Energy (Solar, Wind, Green Hydrogen, Power-to-X)</li><li>Power Electronic Converters, Topologies &amp; Control</li><li>Digital Twins for Power Electronic and Energy Systems</li><li>Electric &amp; Hybrid Electric Vehicles, Charging Infrastructure</li><li>AI and Data Analytics in Power &amp; Energy Engineering</li><li>IoT Integration in Smart Energy Systems</li><li>Smart Grids, Resilience &amp; Energy Commerce</li><li>Cybersecurity for Cyber-Physical Energy Systems</li><li>Sustainable Energy Policy, Carbon Neutrality &amp; Global Impact</li><li>Computational Fluid Dynamics</li><li>Thermal Science</li></ul></div></div>
         </div>
-
-        
-    </main>
-
-    <!-- 5. Footer (Dark Blue with Pattern) -->
-    <footer id="site-footer" class="bg-ieee-blue-dark text-white pt-8 pb-10 mt-10 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <!-- 1. Footer Links (Centered and Above) -->
-            <ul class="flex flex-wrap justify-center space-x-4 text-sm font-semibold border-b border-white/30 pb-4 mb-6">
-                <li><a href="./" class="hover:text-ieee-blue-light transition duration-150 p-2">HOME</a></li>
-                <li><a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150 p-2">SITEMAP</a></li>
-                <li><a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150 p-2">ACCESSIBILITY</a></li>
-                <li><a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150 p-2">NONDISCRIMINATION POLICY</a></li>
-                <li><a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150 p-2">ETHICS REPORTING</a></li>
-                <li><a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150 p-2">PRIVACY POLICY</a></li>
-                <li><a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150 p-2">TERMS</a></li>
-            </ul>
-
-            <!-- 2. Copyright & Social Section (Split layout) -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                <!-- Copyright & Disclaimer (Left) -->
-               <div class="text-xs font-light max-w-xl space-y-1 mb-4 md:mb-0 md:pr-8">
-                    <p>&copy; Copyright 2025 IEEE – All rights reserved. Use of this website signifies your agreement to the IEEE Terms and Conditions.</p>
-                    <p class="mt-1">A public charity, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.</p>
-                    <p class="mt-1 font-semibold text-ieee-blue-light">Contact: <a href="mailto:temsmet2026@sithyd.siu.edu.in" class="hover:underline">temsmet2026@sithyd.siu.edu.in</a></p>
-                </div>
-
-                <!-- Social Links (Right) -->
-                <div class="flex space-x-4 text-xl self-end md:self-auto mb-4 md:mb-0">
-                    <a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150"><i class="fab fa-instagram"></i></a>
-                    <a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150"><i class="fab fa-twitter"></i></a>
-                    <a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150"><i class="fab fa-youtube"></i></a>
-                    <a href="#" target="_blank" class="hover:text-ieee-blue-light transition duration-150"><i class="fas fa-share-alt"></i></a>
-                </div>
-            </div>
+        <div class="acc-item" id="track-2">
+          <button class="acc-head"><span class="num">2</span>Track 2: Artificial Intelligence, Data Science &amp; Cybersecurity Governance<span class="material-icons chev">expand_more</span></button>
+          <div class="acc-body"><div><ul><li>Recurrent Neural Networks (RNN), LSTM &amp; Deep Learning Architectures</li><li>Generative AI, Foundation Models &amp; Multimodal Systems</li><li>Transformers and Large Language Models (LLMs)</li><li>Image/Video Processing, Object Detection &amp; Recognition</li><li>AR/VR for Engineering, Education &amp; Human-Centric Solutions</li><li>Predictive Analytics &amp; Forecasting in Real-World Scenarios</li><li>Big Data Analytics &amp; Applied AI in Healthcare &amp; Finance</li><li>AI Ethics, Bias, Transparency, Safety &amp; Responsible AI</li><li>Cybersecurity, Data Privacy, Digital Trust &amp; Zero Trust Architecture</li><li>AI Laws, Policies &amp; Global Governance Frameworks</li><li>Risk Modelling, Threat Detection &amp; Security Challenges in the AI Era</li></ul></div></div>
         </div>
-        <!-- Note: The "Back to Top" button is kept outside the footer to remain fixed -->
-    </footer>
+        <div class="acc-item" id="track-3">
+          <button class="acc-head"><span class="num">3</span>Track 3: Smart Systems, Communication Technologies &amp; Intelligent Infrastructure<span class="material-icons chev">expand_more</span></button>
+          <div class="acc-body"><div><ul><li>IoT, IIoT, Sensor Networks &amp; Edge/Fog Computing</li><li>Smart Cities, Smart Homes &amp; Human-Centred Smart Services</li><li>Blockchain, Cryptography &amp; Privacy-Preserving Technologies</li><li>Wireless Networks, Optical Communications &amp; Sensor Networks</li><li>RF, Microwave &amp; mmWave Innovations</li><li>Embedded Systems, Real-Time Systems &amp; Cyber-Physical Devices</li><li>Software-Defined Networking (SDN) &amp; Network Function Virtualisation (NFV)</li><li>High-Performance Computing for Engineering Applications</li><li>Evolution to 5G, 6G &amp; Future Connectivity</li><li>Resilient Digital Infrastructure for Society</li></ul></div></div>
+        </div>
+        <div class="acc-item" id="track-4">
+          <button class="acc-head"><span class="num">4</span>Track 4: Engineering, Digital Management &amp; Human-Centred Technology<span class="material-icons chev">expand_more</span></button>
+          <div class="acc-body"><div><ul><li>Software Engineering &amp; Smart Management Practices</li><li>Smart Manufacturing, Automation &amp; Industry 5.0</li><li>Predictive Maintenance &amp; AI-Driven Production Systems</li><li>Digital Twins for Business, Supply Chain &amp; Operations</li><li>Organisational Change &amp; Workforce Transformation in the Digital Era</li><li>AI-Enhanced CRM, Service Delivery &amp; Personalisation</li><li>CFO Tech: AI-Powered Financial Forecasting &amp; Risk Analytics</li><li>AI-Augmented Decision Making &amp; Strategic Management</li><li>Digital Currencies, CBDCs &amp; Policy Considerations</li><li>Cloud-Based Analytics &amp; Agile Business Platforms</li><li>Human-Tech Collaboration in Future Workplaces</li></ul></div></div>
+        </div>
+        <div class="acc-item" id="track-5">
+          <button class="acc-head"><span class="num">5</span>Track 5: VLSI, Robotics, Embedded Systems &amp; Intelligent Signal Processing<span class="material-icons chev">expand_more</span></button>
+          <div class="acc-body"><div><ul><li>Audio, Acoustic, Image, Video &amp; Multidimensional Signal Processing</li><li>Computer Vision &amp; Intelligent Perception Systems</li><li>Mobile Robotics, Outdoor Service Robots &amp; Autonomous Navigation</li><li>Aerial Robots: GNC, Autonomy &amp; AI Integration</li><li>Human–Machine Interaction &amp; Multirobot Coordination</li><li>AI-Assisted VLSI Design, EDA Frameworks &amp; Nanoelectronic Systems</li><li>Neuromorphic Computing Trends &amp; Brain-Inspired Systems</li><li>Quantum Computing for Engineering &amp; Optimisation</li><li>Deep Submicron Design Challenges &amp; Testing Methodologies</li></ul></div></div>
+        </div>
+        <div class="acc-item" id="track-6">
+          <button class="acc-head"><span class="num">6</span>Track 6: AI-Driven Markets, Consumer Intelligence &amp; Digital Growth<span class="material-icons chev">expand_more</span></button>
+          <div class="acc-body"><div><ul><li>Disruptive Product Innovations &amp; Scalable Ventures</li><li>Inclusive and Sustainable Business Models for Social Impact</li><li>AI-Powered Sales, Marketing &amp; Consumer Intelligence</li><li>Startup Acceleration, Funding Strategies &amp; Market Dynamics</li><li>Technology Commercialisation &amp; Innovation Management</li><li>Frugal Innovation, Grassroots Innovation &amp; Community Tech</li><li>Women in Tech Leadership &amp; Youth Entrepreneurship</li><li>Global Collaboration Models under Vasudhaiva Kutumbakam</li><li>Digital Finance, FinTech &amp; Inclusive Financial Systems</li><li>Smart Operations, Supply Chain Innovation &amp; Digital Transformation</li><li>Data-Driven Decision Systems &amp; Business Analytics for Inclusive Growth</li><li>Future of Work, Human Capital &amp; Entrepreneurial Ecosystems</li></ul></div></div>
+        </div>
+        <div class="acc-item" id="track-7">
+          <button class="acc-head"><span class="num">7</span>Track 7: Law, Ethics, Public Policy &amp; Human-Centred Governance<span class="material-icons chev">expand_more</span></button>
+          <div class="acc-body"><div><ul><li>AI Regulations, Privacy Laws &amp; Global Digital Governance</li><li>Legal Challenges around Autonomous Systems &amp; Robotics</li><li>Ethical Dilemmas in AI, Data Use &amp; Automation</li><li>Policy Frameworks for Sustainable Technology Adoption</li><li>Tech Diplomacy, Cross-Border Data Flow &amp; Digital Sovereignty</li><li>Environmental Policies &amp; Sustainable Urban Planning</li><li>Governance for Smart Cities, Mobility &amp; Green Energy</li><li>Human Rights, Digital Inclusion &amp; Equity</li></ul></div></div>
+        </div>
+        <div class="acc-item" id="track-8">
+          <button class="acc-head"><span class="num">8</span>Track 8: Education, Society &amp; the Future of Human–AI Coexistence<span class="material-icons chev">expand_more</span></button>
+          <div class="acc-body"><div><ul><li>AI in Education, Personalised Learning &amp; Smart Classrooms</li><li>Future Skills, Workforce Development &amp; Lifelong Learning</li><li>Role of Humanities &amp; Social Sciences in the AI Era</li><li>Digital Health, Telemedicine &amp; Technological Well-Being</li><li>Human–AI Collaboration &amp; Responsible Coexistence</li><li>Social Innovation &amp; Community-Oriented Technologies</li><li>Technology for Accessibility &amp; Assistive Solutions</li><li>Global Citizenship &amp; Vasudhaiva Kutumbakam in Society</li></ul></div></div>
+        </div>
+        </div>
+        <p class="muted" style="font-size:14px;margin-top:36px"><strong>CMT Acknowledgment:</strong> The Microsoft CMT service was used for managing the peer-reviewing process for this conference. This service was provided for free by Microsoft and they bore all expenses, including costs for Azure cloud services as well as for software development and support.</p>
+      </div>
+      <aside class="aside">
+        <div class="card"><h4>For Authors</h4><ul><li><a href="call-for-papers.html">Call for Papers</a></li><li><a href="instructions-for-authors.html">Instructions for Authors</a></li><li><a href="review-manuscripts.html">Review Manuscripts</a></li><li><a href="camera-ready.html">Camera Ready</a></li><li><a href="important-dates.html">Important Dates</a></li></ul></div>
+        <div class="card" style="background:var(--grad);color:#fff"><h4 style="color:#fff">Ready to submit?</h4><p style="font-size:15px;opacity:.9">Submissions are managed via Microsoft CMT.</p><a class="btn btn-light btn-sm" data-cfg-href="submitUrl" href="#" target="_blank" rel="noopener">Submit Paper</a></div>
+      </aside>
+      </div>
+    </div>
+  </section>
+</main>
 
-    <!-- Back to Top Button (Hidden by default) -->
-    <button id="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="fixed bottom-4 right-4 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-ieee-blue-dark transition duration-300 hidden">
-        <i class="fas fa-chevron-up"></i>
-    </button>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.getElementById('menu-toggle');
-            const closeMenu = document.getElementById('close-menu');
-            const mobileMenuDrawer = document.getElementById('mobile-menu-drawer');
-            const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
-            const mobileSearchToggle = document.getElementById('search-toggle-mobile');
-            const mobileSearchBar = document.getElementById('mobile-search-bar');
-            const backToTop = document.getElementById('back-to-top');
-            const mobileAuthorToggle = document.getElementById('mobile-author-toggle');
-            const mobileAuthorMenu = document.getElementById('mobile-author-menu');
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const trackPanes = document.querySelectorAll('.track-pane');
-
-            // --- Mobile Menu Logic ---
-            const toggleMenu = () => {
-                mobileMenuDrawer.classList.toggle('open');
-                mobileMenuBackdrop.classList.toggle('hidden');
-            };
-
-            menuToggle.addEventListener('click', toggleMenu);
-            closeMenu.addEventListener('click', toggleMenu);
-            mobileMenuBackdrop.addEventListener('click', toggleMenu);
-
-            // --- Mobile Search Logic ---
-            mobileSearchToggle.addEventListener('click', () => {
-                mobileSearchBar.classList.toggle('hidden');
-            });
-
-            // --- Mobile Author Dropdown Logic ---
-            mobileAuthorToggle.addEventListener('click', () => {
-                mobileAuthorMenu.classList.toggle('hidden');
-            });
-
-
-            // --- Back to Top Logic ---
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backToTop.classList.remove('hidden');
-                } else {
-                    backToTop.classList.add('hidden');
-                }
-            });
-
-            // --- Tab Switching Logic ---
-            const switchTab = (trackId) => {
-                // Deactivate all buttons and hide all content panes
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                trackPanes.forEach(pane => pane.classList.add('hidden'));
-
-                // Activate the selected button
-                const activeBtn = document.querySelector(`.tab-button[data-track="${trackId}"]`);
-                if (activeBtn) {
-                    activeBtn.classList.add('active');
-                }
-
-                // Show the corresponding content pane
-                const activePane = document.querySelector(`.track-pane[data-track="${trackId}"]`);
-                if (activePane) {
-                    activePane.classList.remove('hidden');
-                }
-            };
-
-            // Attach event listeners to all tab buttons
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const trackId = button.getAttribute('data-track');
-                    switchTab(trackId);
-                });
-            });
-
-        });
-        document.addEventListener('DOMContentLoaded', () => {
-            const accordionItems = document.querySelectorAll('.accordion-item');
-
-            accordionItems.forEach(item => {
-                const header = item.querySelector('.accordion-header');
-                const content = item.querySelector('.accordion-content');
-                const icon = item.querySelector('.plus-icon');
-                
-                // Toggle function to handle opening/closing
-                const toggleAccordion = () => {
-                    const isOpen = header.classList.contains('active');
-
-                    if (isOpen) {
-                        // Close the content
-                        header.classList.remove('active');
-                        content.classList.remove('open');
-                        icon.textContent = icon.dataset.closedIcon;
-                    } else {
-                        // Close all other open items first (Single-accordion functionality)
-                        accordionItems.forEach(otherItem => {
-                            const otherHeader = otherItem.querySelector('.accordion-header');
-                            const otherContent = otherItem.querySelector('.accordion-content');
-                            const otherIcon = otherItem.querySelector('.plus-icon');
-
-                            if (otherHeader !== header && otherHeader.classList.contains('active')) {
-                                otherHeader.classList.remove('active');
-                                otherContent.classList.remove('open');
-                                otherIcon.textContent = otherIcon.dataset.closedIcon;
-                            }
-                        });
-
-                        // Open the clicked content
-                        header.classList.add('active');
-                        content.classList.add('open');
-                        icon.textContent = icon.dataset.openIcon;
-                    }
-                };
-                
-                header.addEventListener('click', toggleAccordion);
-
-                // Initialize state based on the 'open' class
-                const innerContent = content.querySelector('div');
-                
-                // Track 1 starts open, so set the icon and state correctly
-                if (content.classList.contains('open')) {
-                    header.classList.add('active');
-                    icon.textContent = icon.dataset.openIcon;
-                    // Ensure the inner padding of the track title is present on load
-                    innerContent.querySelector('h3').classList.add('pt-6'); 
-                } else {
-                    // For all other tracks, ensure they start closed
-                    icon.textContent = icon.dataset.closedIcon;
-                    innerContent.querySelector('h3').classList.remove('pt-6');
-                }
-            });
-        });
-    </script>
-<script src="search-script.js"></script>
+<div id="site-footer"></div>
 </body>
 </html>

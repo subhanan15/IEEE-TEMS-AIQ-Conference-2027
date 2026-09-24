@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | IEEE AIQ 2027</title>
+  <meta name="description" content="Contact Us — IEEE AIQ 2027, 1st International Conference on Artificial Intelligence and Quantum Computing, 24–25 September 2027, SIT Hyderabad.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body data-page="contact-us">
+<div id="site-header"></div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Get in touch</span>
+      <h1>Contact Us</h1>
+      <p>Questions about submissions, registration or sponsorship? We're here to help.</p>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / Contact Us</nav>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="split" style="align-items:start">
+        <div class="grid" style="gap:20px">
+          <div class="card contact-tile reveal"><div class="card-icon"><span class="material-icons">mail</span></div><div><h4>Email</h4><a data-cfg="email" href="#"></a></div></div>
+          <div class="card contact-tile reveal"><div class="card-icon"><span class="material-icons">call</span></div><div><h4>Phone</h4><span data-cfg="phone"></span></div></div>
+          <div class="card contact-tile reveal"><div class="card-icon"><span class="material-icons">place</span></div><div><h4>Address</h4><span data-cfg="address"></span></div></div>
+          <div class="card reveal"><h4>Conference Secretariat</h4><p class="muted" style="margin:0">Names &amp; contacts of convenors — TBA.</p></div>
+        </div>
+        <div class="prose-card reveal">
+          <h3 style="color:var(--navy)">Send a message</h3>
+          <!-- TODO: connect to a form backend; currently opens the visitor's mail client. -->
+          <form class="form" id="contact-form">
+            <div class="row"><div><label for="c-name">Name</label><input id="c-name" required></div><div><label for="c-email">Email</label><input id="c-email" type="email" required></div></div>
+            <div><label for="c-subj">Subject</label><select id="c-subj"><option>Paper submission</option><option>Registration</option><option>Sponsorship</option><option>Visa</option><option>Other</option></select></div>
+            <div><label for="c-msg">Message</label><textarea id="c-msg" rows="5" required></textarea></div>
+            <div><button class="btn btn-primary" type="submit">Send</button></div>
+          </form>
+        </div>
+      </div>
+      <script>
+        document.getElementById("contact-form").addEventListener("submit", function (e) {
+          e.preventDefault();
+          var to = (window.AIQ && window.AIQ.email) || "";
+          var s = encodeURIComponent("[AIQ 2027] " + document.getElementById("c-subj").value);
+          var b = encodeURIComponent(document.getElementById("c-msg").value + "\n\n— " + document.getElementById("c-name").value + " <" + document.getElementById("c-email").value + ">");
+          window.location.href = "mailto:" + to + "?subject=" + s + "&body=" + b;
+        });
+        document.addEventListener("DOMContentLoaded", function () { var a = document.querySelector('a[data-cfg="email"]'); if (a && window.AIQ) a.href = "mailto:" + window.AIQ.email; });
+      </script>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+</body>
+</html>

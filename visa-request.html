@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visa Letter Request | IEEE AIQ 2027</title>
+  <meta name="description" content="Visa Letter Request — IEEE AIQ 2027, 1st International Conference on Artificial Intelligence and Quantum Computing, 24–25 September 2027, SIT Hyderabad.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body data-page="visa-request">
+<div id="site-header"></div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Attend</span>
+      <h1>Visa Letter Request</h1>
+      <p>Request an official invitation letter for your visa application.</p>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / Attend / Visa Letter Request</nav>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="prose-card narrow reveal" style="margin:0 auto">
+        <p>Invitation letters are issued only to registered participants. Please allow [TBA] working days for processing.</p>
+        <!-- TODO: wire this form to a backend (e.g. Google Form, Formspree, or a PHP handler on cPanel). It does not submit anywhere yet. -->
+        <form class="form" onsubmit="event.preventDefault();alert('Form not connected yet — see TODO in visa-request.html');">
+          <div class="row"><div><label for="v-name">Full name (as in passport)</label><input id="v-name" required></div><div><label for="v-email">Email</label><input id="v-email" type="email" required></div></div>
+          <div class="row"><div><label for="v-pass">Passport number</label><input id="v-pass" required></div><div><label for="v-nat">Nationality</label><input id="v-nat" required></div></div>
+          <div class="row"><div><label for="v-paper">Paper ID (if author)</label><input id="v-paper"></div><div><label for="v-reg">Registration ID</label><input id="v-reg" required></div></div>
+          <div><label for="v-aff">Affiliation &amp; address</label><textarea id="v-aff" rows="3"></textarea></div>
+          <div><button class="btn btn-primary" type="submit">Request Letter</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" fill="none">
+  <!-- Decorative quantum-circuit / neural pattern used behind page headers, CTA and footer. -->
+  <g stroke="#7FDCFF" stroke-opacity=".55" stroke-width="1.4">
+    <!-- qubit wires -->
+    <path d="M40 80H680M40 160H680M40 240H680M40 320H680"/>
+    <!-- CNOT controls -->
+    <path d="M180 80V160M360 160V320M540 80V240"/>
+    <!-- gate boxes -->
+    <rect x="90" y="62" width="36" height="36" rx="4" fill="#002855"/>
+    <rect x="260" y="222" width="36" height="36" rx="4" fill="#002855"/>
+    <rect x="440" y="62" width="36" height="36" rx="4" fill="#002855"/>
+    <rect x="610" y="302" width="36" height="36" rx="4" fill="#002855"/>
+    <rect x="90" y="302" width="36" height="36" rx="4" fill="#002855"/>
+  </g>
+  <g fill="#7FDCFF" fill-opacity=".8">
+    <circle cx="180" cy="80" r="6"/><circle cx="360" cy="320" r="6"/><circle cx="540" cy="80" r="6"/>
+  </g>
+  <g stroke="#B9A8FF" stroke-opacity=".8" stroke-width="1.6">
+    <circle cx="180" cy="160" r="11"/><path d="M169 160h22M180 149v22"/>
+    <circle cx="360" cy="160" r="11"/><path d="M349 160h22M360 149v22"/>
+    <circle cx="540" cy="240" r="11"/><path d="M529 240h22M540 229v22"/>
+  </g>
+  <g font-family="Roboto, sans-serif" font-size="16" fill="#fff" fill-opacity=".85" text-anchor="middle">
+    <text x="108" y="86">H</text><text x="278" y="246">X</text><text x="458" y="86">Z</text><text x="628" y="326">M</text><text x="108" y="326">H</text>
+  </g>
+  <!-- measurement arcs -->
+  <g stroke="#7FDCFF" stroke-opacity=".5" stroke-width="1.2">
+    <path d="M614 330a14 14 0 0 1 28 0M628 330l8-12"/>
+  </g>
+</svg>
