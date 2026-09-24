@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home2/temsmet/public_html
+    - /bin/cp -R $(ls -A | grep -v ".git") $DEPLOYPATH
+    - chmod -R 755 $DEPLOYPATH
